@@ -1,7 +1,15 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
 
-const BACKEND_URL = process.env.MEDUSA_BACKEND_URL
+const normalizeBackendUrl = (url?: string) => {
+  if (!url) {
+    return undefined
+  }
+
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
+const BACKEND_URL = normalizeBackendUrl(process.env.MEDUSA_BACKEND_URL)
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -19,29 +27,73 @@ async function getRegionMap(cacheId: string) {
     )
   }
 
+  if (!PUBLISHABLE_API_KEY) {
+    throw new Error(
+      "Middleware.ts: NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY is missing."
+    )
+  }
+
   if (
     !regionMap.keys().next().value ||
     regionMapUpdated < Date.now() - 3600 * 1000
   ) {
+    let regionsUrl: string
+
+    try {
+      regionsUrl = new URL("/store/regions", BACKEND_URL).toString()
+    } catch {
+      throw new Error(
+        `Middleware.ts: MEDUSA_BACKEND_URL is invalid: "${BACKEND_URL}".`
+      )
+    }
+
     // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
+    const response = await fetch(regionsUrl, {
       headers: {
-        "x-publishable-api-key": PUBLISHABLE_API_KEY!,
+        "x-publishable-api-key": PUBLISHABLE_API_KEY,
       },
       next: {
         revalidate: 3600,
         tags: [`regions-${cacheId}`],
       },
       cache: "force-cache",
-    }).then(async (response) => {
-      const json = await response.json()
-
-      if (!response.ok) {
-        throw new Error(json.message)
-      }
-
-      return json
     })
+    const contentType = response.headers.get("content-type") || ""
+    const isJson = contentType.includes("application/json")
+    const payload = isJson
+      ? await response.json().catch(() => null)
+      : await response.text().catch(() => "")
+
+    if (!response.ok) {
+      const responseMessage =
+        typeof payload === "object" &&
+        payload &&
+        "message" in payload &&
+        typeof payload.message === "string"
+          ? payload.message
+          : `status ${response.status}`
+
+      throw new Error(
+        `Middleware.ts: Failed to fetch regions from ${regionsUrl} (${responseMessage}).`
+      )
+    }
+
+    if (
+      !isJson ||
+      !payload ||
+      typeof payload !== "object" ||
+      !("regions" in payload)
+    ) {
+      const responsePreview =
+        typeof payload === "string"
+          ? payload.replace(/\s+/g, " ").slice(0, 80)
+          : "non-JSON payload"
+      throw new Error(
+        `Middleware.ts: Expected JSON from ${regionsUrl}, received ${contentType || "unknown"} (${responsePreview}).`
+      )
+    }
+
+    const { regions } = payload as { regions?: HttpTypes.StoreRegion[] }
 
     if (!regions?.length) {
       throw new Error(
@@ -112,7 +164,20 @@ export async function middleware(request: NextRequest) {
 
   let cacheId = cacheIdCookie?.value || crypto.randomUUID()
 
-  const regionMap = await getRegionMap(cacheId)
+  let regionMap: Map<string, HttpTypes.StoreRegion>
+
+  try {
+    regionMap = await getRegionMap(cacheId)
+  } catch (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error(error)
+    }
+
+    return new NextResponse(
+      "Region lookup failed. Verify MEDUSA_BACKEND_URL and NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY.",
+      { status: 500 }
+    )
+  }
 
   const countryCode = regionMap && (await getCountryCode(request, regionMap))
 

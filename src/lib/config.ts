@@ -1,11 +1,19 @@
 import { getLocaleHeader } from "@lib/util/get-locale-header"
 import Medusa, { FetchArgs, FetchInput } from "@medusajs/js-sdk"
 
+const normalizeBackendUrl = (url: string) => {
+  if (!url) {
+    return url
+  }
+
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
 // Defaults to standard port for Medusa server
 let MEDUSA_BACKEND_URL = "http://localhost:9000"
 
 if (process.env.MEDUSA_BACKEND_URL) {
-  MEDUSA_BACKEND_URL = process.env.MEDUSA_BACKEND_URL
+  MEDUSA_BACKEND_URL = normalizeBackendUrl(process.env.MEDUSA_BACKEND_URL)
 }
 
 export const sdk = new Medusa({
