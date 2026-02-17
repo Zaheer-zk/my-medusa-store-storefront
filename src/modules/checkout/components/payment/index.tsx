@@ -23,13 +23,17 @@ const Payment = ({
   const activeSession = cart.payment_collection?.payment_sessions?.find(
     (paymentSession: any) => paymentSession.status === "pending"
   )
+  const availableIndianPaymentMethods =
+    availablePaymentMethods?.filter((paymentMethod) =>
+      Boolean(paymentInfoMap[paymentMethod.id])
+    ) || []
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [cardBrand, setCardBrand] = useState<string | null>(null)
   const [cardComplete, setCardComplete] = useState(false)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
-    activeSession?.provider_id ?? ""
+    paymentInfoMap[activeSession?.provider_id] ? activeSession?.provider_id : ""
   )
 
   const searchParams = useSearchParams()
@@ -39,6 +43,11 @@ const Payment = ({
   const isOpen = searchParams.get("step") === "payment"
 
   const setPaymentMethod = async (method: string) => {
+    if (!paymentInfoMap[method]) {
+      setError("Only Paytm and PhonePe are supported.")
+      return
+    }
+
     setError(null)
     setSelectedPaymentMethod(method)
     if (isStripeLike(method)) {
@@ -52,7 +61,10 @@ const Payment = ({
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
 
   const paymentReady =
-    (activeSession && cart?.shipping_methods.length !== 0) || paidByGiftcard
+    (activeSession &&
+      paymentInfoMap[activeSession?.provider_id] &&
+      cart?.shipping_methods.length !== 0) ||
+    paidByGiftcard
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -73,6 +85,11 @@ const Payment = ({
   const handleSubmit = async () => {
     setIsLoading(true)
     try {
+      if (!selectedPaymentMethod || !paymentInfoMap[selectedPaymentMethod]) {
+        setError("Select Paytm or PhonePe to continue.")
+        return
+      }
+
       const shouldInputCard =
         isStripeLike(selectedPaymentMethod) && !activeSession
 
@@ -134,13 +151,13 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
-          {!paidByGiftcard && availablePaymentMethods?.length && (
+          {!paidByGiftcard && availableIndianPaymentMethods.length > 0 && (
             <>
               <RadioGroup
                 value={selectedPaymentMethod}
                 onChange={(value: string) => setPaymentMethod(value)}
               >
-                {availablePaymentMethods.map((paymentMethod) => (
+                {availableIndianPaymentMethods.map((paymentMethod) => (
                   <div key={paymentMethod.id}>
                     {isStripeLike(paymentMethod.id) ? (
                       <StripeCardContainer
@@ -162,6 +179,11 @@ const Payment = ({
                 ))}
               </RadioGroup>
             </>
+          )}
+          {!paidByGiftcard && availableIndianPaymentMethods.length === 0 && (
+            <Text className="txt-medium text-ui-fg-subtle">
+              No supported payment methods found. Configure Paytm and PhonePe.
+            </Text>
           )}
 
           {paidByGiftcard && (

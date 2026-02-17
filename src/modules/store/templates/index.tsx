@@ -9,14 +9,18 @@ import PaginatedProducts from "./paginated-products"
 const StoreTemplate = ({
   sortBy,
   page,
+  query,
   countryCode,
 }: {
   sortBy?: SortOptions
   page?: string
+  query?: string
   countryCode: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
+  const trimmedQuery = query?.trim() || ""
+  const isSearchResults = Boolean(trimmedQuery)
 
   return (
     <div
@@ -27,19 +31,26 @@ const StoreTemplate = ({
       <div className="w-full">
         <div className="section-shell mb-8 p-6 small:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#61739b]">
-            Storefront
+            {isSearchResults ? "Search results" : "Storefront"}
           </p>
           <h1
             className="mt-2 font-display text-4xl text-[#1a2238] small:text-5xl"
             data-testid="store-page-title"
           >
-            All products
+            {isSearchResults ? `Results for "${trimmedQuery}"` : "All products"}
           </h1>
+          {isSearchResults && (
+            <p className="mt-3 text-sm leading-7 text-[#4f6088]">
+              Showing products matching your query. Update filters or search
+              with a different keyword for broader results.
+            </p>
+          )}
         </div>
         <Suspense fallback={<SkeletonProductGrid />}>
           <PaginatedProducts
             sortBy={sort}
             page={pageNumber}
+            searchQuery={trimmedQuery}
             countryCode={countryCode}
           />
         </Suspense>
