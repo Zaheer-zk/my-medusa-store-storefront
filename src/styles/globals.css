@@ -2,6 +2,52 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer base {
+  :root {
+    --brand-cream: #f8f3e8;
+    --brand-paper: #fffdf8;
+    --brand-ink: #1a2238;
+    --brand-gold: #b9833f;
+    --brand-clay: #c76a46;
+    --brand-border: #e6decd;
+    --brand-shadow: rgba(31, 30, 27, 0.09);
+  }
+
+  body {
+    font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+    background:
+      radial-gradient(
+        1200px circle at 10% -5%,
+        rgba(200, 146, 83, 0.16),
+        transparent 45%
+      ),
+      radial-gradient(
+        900px circle at 95% 0%,
+        rgba(89, 119, 170, 0.15),
+        transparent 45%
+      ),
+      linear-gradient(180deg, var(--brand-paper) 0%, #fbf8ef 100%);
+    color: var(--brand-ink);
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype",
+      serif;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: rgba(185, 131, 63, 0.24);
+    color: var(--brand-ink);
+  }
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
@@ -47,15 +93,55 @@
   input[type="search"]::-webkit-search-results-decoration {
     -webkit-appearance: none;
   }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-shell {
+    @apply rounded-[2rem] border border-[#e8dfcf] bg-[#fffdf8]/95 shadow-[0_20px_70px_-40px_rgba(30,34,56,0.45)] backdrop-blur-sm;
+  }
+
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.11;
+    background-image: radial-gradient(#b9833f 0.5px, transparent 0.5px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+
+  .brand-gradient-text {
+    background: linear-gradient(120deg, #16213e 0%, #3b4f7a 45%, #b9833f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 @layer components {
   .content-container {
-    @apply max-w-[1440px] w-full mx-auto px-6;
+    @apply max-w-[1520px] w-full mx-auto px-4 small:px-8;
   }
 
   .contrast-btn {
-    @apply px-4 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors duration-200 ease-in;
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200;
+    border: 1px solid #d8c7aa;
+    color: var(--brand-ink);
+    background: linear-gradient(180deg, #fffefb 0%, #f7f0e2 100%);
+    box-shadow: 0 10px 30px -22px rgba(26, 34, 56, 0.65);
+  }
+
+  .contrast-btn:hover {
+    border-color: #b9833f;
+    transform: translateY(-1px);
+    box-shadow: 0 20px 35px -24px rgba(26, 34, 56, 0.7);
   }
 
   .text-xsmall-regular {

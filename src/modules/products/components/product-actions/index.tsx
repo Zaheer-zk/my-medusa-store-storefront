@@ -172,7 +172,7 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="primary"
-          className="w-full h-10"
+          className="h-11 w-full rounded-full border-0 bg-[#1a2238] text-white hover:bg-[#243358]"
           isLoading={isAdding}
           data-testid="add-product-button"
         >

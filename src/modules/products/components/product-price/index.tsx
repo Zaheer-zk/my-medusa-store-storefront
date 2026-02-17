@@ -18,14 +18,14 @@ export default function ProductPrice({
   const selectedPrice = variant ? variantPrice : cheapestPrice
 
   if (!selectedPrice) {
-    return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />
+    return <div className="block w-32 h-9 animate-pulse rounded-full bg-[#efe6d5]" />
   }
 
   return (
-    <div className="flex flex-col text-ui-fg-base">
+    <div className="flex flex-col text-[#1a2238]">
       <span
-        className={clx("text-xl-semi", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
+        className={clx("font-display text-3xl", {
+          "text-[#b05831]": selectedPrice.price_type === "sale",
         })}
       >
         {!variant && "From "}
@@ -39,7 +39,7 @@ export default function ProductPrice({
       {selectedPrice.price_type === "sale" && (
         <>
           <p>
-            <span className="text-ui-fg-subtle">Original: </span>
+            <span className="text-[#6f7fa4]">Original: </span>
             <span
               className="line-through"
               data-testid="original-product-price"
@@ -48,7 +48,7 @@ export default function ProductPrice({
               {selectedPrice.original_price}
             </span>
           </p>
-          <span className="text-ui-fg-interactive">
+          <span className="font-semibold text-[#b05831]">
             -{selectedPrice.percentage_diff}%
           </span>
         </>

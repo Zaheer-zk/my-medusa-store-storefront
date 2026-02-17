@@ -82,10 +82,10 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="rounded-full border border-[#dac8ac] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#1a2238] transition hover:border-[#b9833f]"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >{`Cart ${totalItems}`}</LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}
@@ -99,15 +99,18 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+14px)] right-0 w-[430px] overflow-hidden rounded-[1.5rem] border border-[#e6d9c1] bg-[#fffdfa] text-[#1a2238] shadow-[0_28px_80px_-38px_rgba(26,34,56,0.55)]"
             data-testid="nav-cart-dropdown"
           >
-            <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+            <div className="p-5 flex items-center justify-between border-b border-[#efe6d7]">
+              <h3 className="font-display text-2xl">Your Cart</h3>
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#54648f]">
+                {totalItems} items
+              </span>
             </div>
             {cartState && cartState.items?.length ? (
               <>
-                <div className="overflow-y-scroll max-h-[402px] px-4 grid grid-cols-1 gap-y-8 no-scrollbar p-px">
+                <div className="overflow-y-scroll max-h-[402px] p-5 grid grid-cols-1 gap-y-8 no-scrollbar">
                   {cartState.items
                     .sort((a, b) => {
                       return (a.created_at ?? "") > (b.created_at ?? "")
@@ -116,7 +119,7 @@ const CartDropdown = ({
                     })
                     .map((item) => (
                       <div
-                        className="grid grid-cols-[122px_1fr] gap-x-4"
+                        className="grid grid-cols-[110px_1fr] gap-x-4"
                         key={item.id}
                         data-testid="cart-item"
                       >
@@ -128,6 +131,7 @@ const CartDropdown = ({
                             thumbnail={item.thumbnail}
                             images={item.variant?.product?.images}
                             size="square"
+                            className="rounded-2xl border border-[#eee4d3] p-2"
                           />
                         </LocalizedClientLink>
                         <div className="flex flex-col justify-between flex-1">
@@ -174,14 +178,14 @@ const CartDropdown = ({
                       </div>
                     ))}
                 </div>
-                <div className="p-4 flex flex-col gap-y-4 text-small-regular">
+                <div className="p-5 flex flex-col gap-y-4 text-small-regular border-t border-[#efe6d7] bg-[#fcf7ee]">
                   <div className="flex items-center justify-between">
-                    <span className="text-ui-fg-base font-semibold">
+                    <span className="font-semibold">
                       Subtotal{" "}
                       <span className="font-normal">(excl. taxes)</span>
                     </span>
                     <span
-                      className="text-large-semi"
+                      className="text-xl font-semibold"
                       data-testid="cart-subtotal"
                       data-value={subtotal}
                     >
@@ -193,7 +197,7 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full"
+                      className="w-full rounded-full border-0 bg-[#1a2238] text-white hover:bg-[#243358]"
                       size="large"
                       data-testid="go-to-cart-button"
                     >
@@ -204,8 +208,8 @@ const CartDropdown = ({
               </>
             ) : (
               <div>
-                <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
+                <div className="flex py-16 flex-col gap-y-4 items-center justify-center text-[#4d5d86]">
+                  <div className="bg-[#1a2238] text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span>0</span>
                   </div>
                   <span>Your shopping bag is empty.</span>
@@ -213,7 +217,12 @@ const CartDropdown = ({
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
+                        <Button
+                          onClick={close}
+                          className="rounded-full border-0 bg-[#1a2238] text-white hover:bg-[#243358]"
+                        >
+                          Explore products
+                        </Button>
                       </>
                     </LocalizedClientLink>
                   </div>

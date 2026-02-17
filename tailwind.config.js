@@ -21,6 +21,14 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        brand: {
+          cream: "#f8f3e8",
+          paper: "#fffdf8",
+          ink: "#1a2238",
+          gold: "#b9833f",
+          clay: "#c76a46",
+          border: "#e6decd",
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
@@ -59,15 +67,12 @@ module.exports = {
         "3xl": "2rem",
       },
       fontFamily: {
-        sans: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
-          "sans-serif",
+        sans: ["Manrope", "Avenir Next", "Segoe UI", "sans-serif"],
+        display: [
+          "Cormorant Garamond",
+          "Iowan Old Style",
+          "Palatino Linotype",
+          "serif",
         ],
       },
       keyframes: {
@@ -140,6 +145,14 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        "float-up": {
+          "0%": { opacity: "0", transform: "translateY(26px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
       },
       animation: {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
@@ -155,6 +168,8 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        "float-up": "float-up 800ms cubic-bezier(0.21, 0.85, 0.35, 1) both",
+        shimmer: "shimmer 2.2s linear infinite",
       },
     },
   },
