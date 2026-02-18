@@ -17,13 +17,13 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50">
-      <div className="border-b border-white/10 bg-[#1a2238] text-[11px] tracking-[0.18em] text-white/80 uppercase">
+      <div className="border-b border-white/10 bg-brand-ink text-[11px] tracking-[0.18em] text-white/80 uppercase">
         <div className="content-container py-2 text-center">
           Curated marketplace experiences
         </div>
       </div>
-      <header className="border-b border-[#e8dfcf] bg-[#fffdf8]/90 backdrop-blur-md">
-        <nav className="content-container flex h-20 items-center justify-between gap-4 text-sm text-[#39466c]">
+      <header className="border-b border-brand-border bg-brand-paper/90 backdrop-blur-md">
+        <nav className="content-container flex h-20 items-center justify-between gap-4 text-sm text-brand-ink-light">
           <div className="flex flex-1 basis-0 items-center gap-6">
             <div className="h-full flex items-center">
               <SideMenu
@@ -34,7 +34,7 @@ export default async function Nav() {
             </div>
             <LocalizedClientLink
               href="/store"
-              className="hidden small:inline-flex rounded-full border border-[#e2d3ba] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#243358] transition hover:border-[#b9833f] hover:text-[#1a2238]"
+              className="hidden small:inline-flex rounded-full border border-brand-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-ink transition hover:border-brand-gold hover:text-brand-ink"
             >
               Shop
             </LocalizedClientLink>
@@ -43,7 +43,7 @@ export default async function Nav() {
           <div className="flex items-center justify-center">
             <LocalizedClientLink
               href="/"
-              className="font-display text-[1.7rem] leading-none tracking-[0.06em] text-[#1a2238] transition hover:text-[#b9833f]"
+              className="font-display text-[1.7rem] leading-none tracking-[0.06em] text-brand-ink transition hover:text-brand-gold"
               data-testid="nav-store-link"
             >
               Atelier Bazaar
@@ -53,13 +53,13 @@ export default async function Nav() {
           <div className="flex flex-1 basis-0 items-center justify-end gap-4 small:gap-6">
             <div className="hidden small:flex items-center gap-5">
               <LocalizedClientLink
-                className="text-xs font-semibold uppercase tracking-[0.14em] text-[#4a587f] transition hover:text-[#1a2238]"
+                className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-muted transition hover:text-brand-ink"
                 href="/store"
               >
                 Catalog
               </LocalizedClientLink>
               <LocalizedClientLink
-                className="text-xs font-semibold uppercase tracking-[0.14em] text-[#4a587f] transition hover:text-[#1a2238]"
+                className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-muted transition hover:text-brand-ink"
                 href="/account"
                 data-testid="nav-account-link"
               >
@@ -69,7 +69,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="rounded-full border border-[#dac8ac] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#1a2238] transition hover:border-[#b9833f]"
+                  className="rounded-full border border-brand-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-ink transition hover:border-brand-gold"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

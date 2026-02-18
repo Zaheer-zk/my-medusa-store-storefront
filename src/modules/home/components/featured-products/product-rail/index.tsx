@@ -31,10 +31,10 @@ export default async function ProductRail({
       <div className="section-shell grain-overlay overflow-hidden p-6 small:p-10">
         <div className="mb-8 flex flex-col gap-4 small:mb-10 small:flex-row small:items-end small:justify-between">
           <div>
-            <Text className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#6d7fa7]">
+            <Text className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-faded">
               Curated selection
             </Text>
-            <Text className="font-display text-3xl text-[#1a2238] small:text-4xl">
+            <Text className="font-display text-3xl text-brand-ink small:text-4xl">
               {collection.title}
             </Text>
           </div>

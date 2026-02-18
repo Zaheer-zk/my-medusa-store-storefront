@@ -35,7 +35,7 @@ export default async function ProductPreview({
     >
       <div
         data-testid="product-wrapper"
-        className="rounded-[1.4rem] border border-[#eadfcf] bg-[#fffdf8] p-3 transition duration-300 hover:border-[#d5c09b]"
+        className="rounded-[1.4rem] border border-brand-border bg-brand-paper p-3 transition duration-300 hover:border-brand-beige"
       >
         <Thumbnail
           thumbnail={product.thumbnail}
@@ -45,17 +45,17 @@ export default async function ProductPreview({
         />
         <div className="mt-4 flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7a8bb1]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-faded">
               {isFeatured ? "Featured" : "Collection"}
             </p>
             <Text
-              className="mt-1 text-sm font-semibold leading-6 text-[#1a2238]"
+              className="mt-1 text-sm font-semibold leading-6 text-brand-ink"
               data-testid="product-title"
             >
               {product.title}
             </Text>
           </div>
-          <div className="flex items-center gap-x-2 rounded-full border border-[#e0d1b8] bg-[#fcf3e2] px-3 py-1 text-xs font-semibold text-[#1a2238]">
+          <div className="flex items-center gap-x-2 rounded-full border border-brand-border bg-brand-cream px-3 py-1 text-xs font-semibold text-brand-ink">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>

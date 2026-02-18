@@ -29,15 +29,15 @@ const ProductShowcase = ({
       <div className="section-shell grain-overlay overflow-hidden p-6 small:p-8">
         <div className="mb-6 flex flex-col gap-3 small:mb-8 small:flex-row small:items-end small:justify-between">
           <div>
-            <Text className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6d7fa7]">
+            <Text className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-faded">
               {eyebrow}
             </Text>
-            <h2 className="mt-2 font-display text-4xl text-[#1a2238] small:text-5xl">
+            <h2 className="mt-2 font-display text-4xl text-brand-ink small:text-5xl">
               {title}
             </h2>
           </div>
           <div className="small:max-w-lg">
-            <p className="text-sm leading-7 text-[#4f6088]">{description}</p>
+            <p className="text-sm leading-7 text-brand-muted">{description}</p>
             <div className="mt-2">
               <InteractiveLink href={viewAllHref}>Browse more</InteractiveLink>
             </div>

@@ -12,28 +12,28 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="w-full mt-24 border-t border-[#d7c9ae] bg-[#101a2f] text-[#f4ebdc]">
+    <footer className="w-full mt-24 border-t border-brand-beige bg-brand-ink-dark text-brand-cream">
       <div className="content-container py-16 small:py-20">
         <div className="grid gap-12 small:grid-cols-[1.2fr_2fr]">
           <div className="space-y-6">
             <LocalizedClientLink
               href="/"
-              className="font-display text-[2.1rem] leading-none tracking-[0.04em] text-[#f8e6c5] transition hover:text-white"
+              className="font-display text-[2.1rem] leading-none tracking-[0.04em] text-brand-gold-light transition hover:text-white"
             >
               Atelier Bazaar
             </LocalizedClientLink>
-            <Text className="max-w-md text-sm leading-7 text-[#d7c9ae]">
+            <Text className="max-w-md text-sm leading-7 text-brand-beige">
               A modern-classic commerce experience crafted for premium multi
               vendor stories.
             </Text>
-            <div className="inline-flex rounded-full border border-[#b9833f]/60 bg-[#16213e] px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#f8e6c5]">
+            <div className="inline-flex rounded-full border border-brand-gold/60 bg-brand-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-gold-light">
               Worldwide shipping available
             </div>
           </div>
           <div className="grid gap-10 text-sm sm:grid-cols-3">
             {productCategories && productCategories.length > 0 && (
               <div className="flex flex-col gap-y-3">
-                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f8e6c5]">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-gold-light">
                   Categories
                 </span>
                 <ul className="grid grid-cols-1 gap-2" data-testid="footer-categories">
@@ -45,7 +45,7 @@ export default async function Footer() {
                     return (
                       <li key={category.id}>
                         <LocalizedClientLink
-                          className="text-[#d7c9ae] transition hover:text-white"
+                          className="text-brand-beige transition hover:text-white"
                           href={`/categories/${category.handle}`}
                           data-testid="category-link"
                         >
@@ -59,11 +59,11 @@ export default async function Footer() {
             )}
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-3">
-                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f8e6c5]">
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-gold-light">
                   Collections
                 </span>
                 <ul
-                  className={clx("grid grid-cols-1 gap-2 text-[#d7c9ae]", {
+                  className={clx("grid grid-cols-1 gap-2 text-brand-beige", {
                     "sm:grid-cols-2": collections.length > 3,
                   })}
                 >
@@ -81,10 +81,10 @@ export default async function Footer() {
               </div>
             )}
             <div className="flex flex-col gap-y-3">
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f8e6c5]">
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-gold-light">
                 Platform
               </span>
-              <ul className="grid grid-cols-1 gap-y-2 text-[#d7c9ae]">
+              <ul className="grid grid-cols-1 gap-y-2 text-brand-beige">
                 <li>
                   <a
                     href="https://github.com/medusajs"
@@ -117,7 +117,7 @@ export default async function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-[#d7c9ae] small:flex-row small:items-center small:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-brand-beige small:flex-row small:items-center small:justify-between">
           <Text className="tracking-[0.08em] uppercase">
             © {new Date().getFullYear()} Atelier Bazaar
           </Text>
