@@ -35,7 +35,7 @@ export default async function ProductPreview({
     >
       <div
         data-testid="product-wrapper"
-        className="rounded-[1.4rem] border border-brand-border bg-brand-paper p-3 transition duration-300 hover:border-brand-beige"
+        className="rounded-[1.4rem] border border-brand-border bg-brand-paper p-3 transition-all duration-300 hover:-translate-y-1 hover:border-brand-gold-light hover:shadow-[0_20px_40px_-15px_rgba(26,34,56,0.08)]"
       >
         <Thumbnail
           thumbnail={product.thumbnail}

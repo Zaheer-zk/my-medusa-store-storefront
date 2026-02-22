@@ -3,9 +3,9 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 const HolidaySaleBanner = () => {
   return (
     <section className="content-container mt-8 small:mt-10">
-      <div className="relative overflow-hidden rounded-[2rem] border border-brand-ink-light bg-brand-ink px-6 py-8 text-brand-gold-light shadow-[0_25px_70px_-40px_rgba(26,34,56,0.95)] small:px-9 small:py-10">
-        <div className="absolute -right-10 top-0 h-40 w-40 rounded-full bg-brand-clay/35 blur-[55px]" />
-        <div className="absolute -left-12 bottom-0 h-44 w-44 rounded-full bg-brand-gold/30 blur-[65px]" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-brand-ink-light bg-gradient-to-br from-brand-ink via-[#2a3655] to-brand-ink-dark bg-[length:200%_200%] px-6 py-8 text-brand-gold-light shadow-[0_25px_70px_-40px_rgba(26,34,56,0.95)] animate-gradient-xy small:px-9 small:py-10">
+        <div className="absolute -right-10 top-0 h-56 w-56 rounded-full bg-brand-clay/40 blur-[70px] animate-blob" />
+        <div className="absolute -left-12 bottom-0 h-64 w-64 rounded-full bg-brand-gold/30 blur-[80px] animate-blob" style={{ animationDelay: "2s" }} />
         <div className="relative z-10 grid gap-6 medium:grid-cols-[1.15fr_0.85fr] medium:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-beige">
@@ -22,11 +22,11 @@ const HolidaySaleBanner = () => {
           <div className="flex flex-wrap items-center gap-3 medium:justify-end">
             <LocalizedClientLink
               href="/store?sortBy=price_asc"
-              className="inline-flex items-center rounded-full border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-brand-ink transition hover:bg-white"
+              className="inline-flex items-center rounded-full border border-brand-gold-light bg-brand-gold-light px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-brand-ink transition-all duration-300 hover:scale-105 hover:bg-white hover:shadow-[0_0_20px_rgba(248,230,197,0.3)]"
             >
               Shop sale
             </LocalizedClientLink>
-            <span className="rounded-full border border-white/25 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-brand-gold-light">
+            <span className="rounded-full border border-white/25 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-brand-gold-light transition-all duration-300 hover:border-brand-gold-light hover:bg-white/5">
               Code: HOLIDAYINR
             </span>
           </div>
